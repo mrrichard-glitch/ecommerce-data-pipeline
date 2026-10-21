@@ -47,10 +47,16 @@ services:
   # One-off: migrate the Airflow database and create the (demo-only) admin user.
   airflow-init:
     <<: *airflow-common
-    command: >
-      bash -c "airflow db migrate &&
-               (airflow users create --username admin --password admin --firstname Data
-                 --lastname Engineer --role Admin --email admin@example.com || true)"
+    # `|| true` lets a re-run skip an existing user; the last line fails the
+    # init (and so the stack) if the admin user still does not exist.
+    command:
+      - bash
+      - -c
+      - |
+        set -e
+        airflow db migrate
+        airflow users create --username admin --password admin --firstname Data --lastname Engineer --role Admin --email admin@example.com || true
+        airflow users list | grep -qw admin
 
   airflow-webserver:
     <<: *airflow-common
