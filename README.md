@@ -89,8 +89,8 @@ sales_amount_ghs: staging=177731.00 warehouse=177731.00 OK
 You need [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 ```bash
-git clone https://github.com/mrrichard-glitch/ghana-ecommerce-data-pipeline.git
-cd ghana-ecommerce-data-pipeline
+git clone https://github.com/mrrichard-glitch/ecommerce-data-pipeline.git
+cd ecommerce-data-pipeline
 docker compose up -d
 ```
 
